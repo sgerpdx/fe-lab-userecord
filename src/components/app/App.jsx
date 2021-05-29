@@ -28,23 +28,19 @@ function App() {
   };
 
   const undoRecord = () => {
-    const diffCondition = counter - editCounter - 1;
+    const diffCondition = counter - editCounter;
     if (diffCondition > 0) {
       setCurrent(colorRecords[counter - editCounter - 1]);
       setEditCounter((editCounter) => editCounter + 1);
-      console.log('Undo>current color', current);
     } else console.log('no previous records');
   };
 
-  useEffect(
-    (current) => {
-      if (counter === 0) {
-        setColorRecords((colorRecords) => [...colorRecords, current]);
-      }
-      setLoading(false);
-    },
-    [current]
-  );
+  useEffect(() => {
+    if (counter === 0) {
+      setColorRecords((colorRecords) => [...colorRecords, current]);
+    }
+    setLoading(false);
+  }, [current]);
 
   // useEffect(() => {
   //   // const lastValue = colorRecords[counter - editCounter];
