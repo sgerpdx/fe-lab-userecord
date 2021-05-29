@@ -19,18 +19,25 @@ function App() {
   console.log(':::editCounter', editCounter);
 
   const record = (value) => {
+    const currentIndex = colorRecords.length - editCounter;
     //current variable to record & push current into colorRecords:
     setCurrent(value);
     setCounter((counter) => counter + 1);
-    //colorRecords.push(current);
-    // maybe need to rework this function to fit proper hook syntax:
-    setColorRecords((colorRecords) => [...colorRecords, value]);
+    if (editCounter === 0) {
+      //colorRecords.push(current);
+      // maybe need to rework this function to fit proper hook syntax:
+      setColorRecords((colorRecords) => [...colorRecords, value]);
+    } else {
+      colorRecords.splice(currentIndex, 0, value);
+      setEditCounter((editCounter) => editCounter);
+      console.log('###nowIndex', currentIndex);
+    }
   };
 
   const undo = () => {
     const diffCondition = counter - editCounter;
     if (diffCondition > 0) {
-      //experiment with switching the order of these two calls:
+      //experiment with switching the order of these two calls, looks like sEC happening before sC...
       setEditCounter((editCounter) => editCounter + 1);
       setCurrent(colorRecords[counter - editCounter - 1]);
     } else console.log('no previous records');
@@ -42,7 +49,7 @@ function App() {
       setEditCounter((editCounter) => editCounter - 1);
       //this part is not working:
       setCurrent(colorRecords[counter - editCounter + 1]);
-    } else return 'no forward records';
+    } else console.log('no forward records');
   };
 
   useEffect(() => {
