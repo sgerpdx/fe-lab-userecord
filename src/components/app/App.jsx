@@ -12,41 +12,49 @@ function App() {
   const [current, setCurrent] = useState('#FF0000');
   const [undo] = useState(null);
   const [redo] = useState(null);
-  //const [record, setRecord] = useState('#FF0000');
 
   console.log('>>>', colorRecords);
   console.log('//Current:', current);
   console.log('|||counter', counter);
-
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, []);
+  console.log(':::editCounter', editCounter);
 
   const record = (value) => {
     //current variable to record & push current into colorRecords:
     setCurrent(value);
-    colorRecords.push(current);
-    // setColorRecords((current) => setColorRecords(current));
+    //colorRecords.push(current);
+    // maybe need to rework this function to fit proper hook syntax:
+    setColorRecords((colorRecords) => [...colorRecords, value]);
   };
 
-  useEffect(() => {
-    setCounter((counter) => counter + 1);
-    setLoading(false);
-  }, [current]);
+  const undoRecord = () => {
+    console.log('undoRecord is kinda sorta working');
+    const diffCondition = counter - editCounter - 1;
+    console.log('>>DC>>', diffCondition);
+    if (diffCondition > 0) {
+      console.log('if statement entered');
+      setEditCounter((editCounter) => editCounter + 1);
+      //I don't know why this works but it does:
+      setCurrent(colorRecords[counter - editCounter - 1]);
+      //setCurrent('#778855');
+    } else console.log('no previous records');
+  };
 
-  // const undoRecord = (counter, editCounter) => {
-  //   if (counter - editCounter > 0) {
-  //     setCurrent(
-  //       (current) => (current = colorRecords[counter - editCounter - 1])
-  //     );
-  //     setEditCounter((editCounter) => editCounter + 1);
-  //   } else return 'no previous records';
-  // };
+  useEffect(
+    (current) => {
+      if (counter === 0)
+        setColorRecords((colorRecords) => [...colorRecords, current]);
+      setCounter((counter) => counter + 1);
+      setLoading(false);
+    },
+    [current]
+  );
 
   // useEffect(() => {
-  //   undoRecord(counter, editCounter);
+  //   // const lastValue = colorRecords[counter - editCounter];
+  //   // console.log('>>>LV', lastValue);
+  //   setCurrent(colorRecords[counter]);
   //   setLoading(false);
-  // }, [undo]);
+  // }, [editCounter]);
 
   // const redoRecord = (editCounter) => {
   //   if (editCounter < colorRecords.length) {
@@ -66,7 +74,7 @@ function App() {
 
   return (
     <>
-      <button onClick={undo}>undo</button>
+      <button onClick={undoRecord}>undo</button>
       <button onClick={redo}>redo</button>
       <input
         type="color"
