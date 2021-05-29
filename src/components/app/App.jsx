@@ -10,8 +10,8 @@ function App() {
   const [counter, setCounter] = useState(0);
   const [editCounter, setEditCounter] = useState(0);
   const [current, setCurrent] = useState('#FF0000');
-  const [undo] = useState(null);
-  const [redo] = useState(null);
+  //const [undo] = useState(null);
+  //const [redo] = useState(null);
 
   console.log('>>>', colorRecords);
   console.log('//Current:', current);
@@ -27,12 +27,22 @@ function App() {
     setColorRecords((colorRecords) => [...colorRecords, value]);
   };
 
-  const undoRecord = () => {
+  const undo = () => {
     const diffCondition = counter - editCounter;
     if (diffCondition > 0) {
-      setCurrent(colorRecords[counter - editCounter - 1]);
+      //experiment with switching the order of these two calls:
       setEditCounter((editCounter) => editCounter + 1);
+      setCurrent(colorRecords[counter - editCounter - 1]);
     } else console.log('no previous records');
+  };
+
+  const redo = () => {
+    if (editCounter !== 0) {
+      //this part is working, though maybe on a delay:
+      setEditCounter((editCounter) => editCounter - 1);
+      //this part is not working:
+      setCurrent(colorRecords[counter - editCounter + 1]);
+    } else return 'no forward records';
   };
 
   useEffect(() => {
@@ -49,15 +59,6 @@ function App() {
   //   setLoading(false);
   // }, [editCounter]);
 
-  // const redoRecord = (editCounter) => {
-  //   if (editCounter < colorRecords.length) {
-  //     setCurrent(
-  //       (current) => (current = colorRecords[counter - editCounter - 1])
-  //     );
-  //     setEditCounter((editCounter) => editCounter - 1);
-  //   } else return 'no forward records';
-  // };
-
   // useEffect(() => {
   //   redoRecord(editCounter);
   //   setLoading(false);
@@ -67,7 +68,7 @@ function App() {
 
   return (
     <>
-      <button onClick={undoRecord}>undo</button>
+      <button onClick={undo}>undo</button>
       <button onClick={redo}>redo</button>
       <input
         type="color"
