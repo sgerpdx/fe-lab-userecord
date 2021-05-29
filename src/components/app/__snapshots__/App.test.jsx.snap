@@ -41,11 +41,20 @@ exports[`App component renders App 1`] = `
     >
       redo
     </button>
-    <input
-      style="margin: 10px;"
-      type="color"
-      value="#FF0000"
-    />
+    <div>
+      <label
+        for="color"
+      >
+        Selector
+      </label>
+      <input
+        aria-label="Color Selector"
+        id="color"
+        style="margin: 10px;"
+        type="color"
+        value="#FF0000"
+      />
+    </div>
     <div
       style="background-color: rgb(255, 0, 0); width: 10rem; height: 10rem; border: 1px solid white; padding: 4px;"
     />

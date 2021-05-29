@@ -16,7 +16,7 @@ function App() {
   const [feedback, setFeedback] = useState('');
 
   // console.log('>>>', colorRecords);
-  // console.log('//Current:', current);
+  console.log('//Current:', current);
   // console.log('|||counter', counter);
   // console.log(':::editCounter', editCounter);
 
@@ -64,16 +64,27 @@ function App() {
       <section className={styles.controlArea}>
         <h3>Select a Color to Change the Square:</h3>
         <hr></hr>
-        <button aria-label="Undo Selection" onClick={undo}>undo</button>
-        <button aria-label="Redo Selection" onClick={redo}>redo</button>
-        <input
-          type="color"
-          value={current}
-          style={{ margin: '10px' }}
-          onChange={({ target }) => record(target.value)}
-        />
+        <button aria-label="Undo Selection" onClick={undo}>
+          undo
+        </button>
+        <button aria-label="Redo Selection" onClick={redo}>
+          redo
+        </button>
+        <div>
+          <label for="color">Selector</label>
+          <input
+            id="color"
+            type="color"
+            value={current}
+            aria-label="Color Selector"
+            style={{ margin: '10px' }}
+            onChange={({ target }) => record(target.value)}
+          />
+        </div>
+
         <div
           style={{
+            role: 'colorbox',
             backgroundColor: current,
             width: '10rem',
             height: '10rem',
