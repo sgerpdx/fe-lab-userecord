@@ -1,9 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`App component behaves as intended 1`] = `
+<h3>
+  Select a Color to Change the Square:
+</h3>
+`;
+
+exports[`App component behaves as intended 2`] = `
+<button
+  aria-label="Undo Selection"
+>
+  undo
+</button>
+`;
+
+exports[`App component behaves as intended 3`] = `
+<button
+  aria-label="Redo Selection"
+>
+  redo
+</button>
+`;
+
 exports[`App component renders App 1`] = `
 <DocumentFragment>
-  <h1>
-    Hello World
-  </h1>
+  <section
+    class="controlArea"
+  >
+    <h3>
+      Select a Color to Change the Square:
+    </h3>
+    <hr />
+    <button
+      aria-label="Undo Selection"
+    >
+      undo
+    </button>
+    <button
+      aria-label="Redo Selection"
+    >
+      redo
+    </button>
+    <input
+      style="margin: 10px;"
+      type="color"
+      value="#FF0000"
+    />
+    <div
+      style="background-color: rgb(255, 0, 0); width: 10rem; height: 10rem; border: 1px solid white; padding: 4px;"
+    />
+  </section>
+  <section
+    class="feedbackArea"
+  >
+    <h4
+      aria-label="User Feedback"
+    >
+      &gt;&gt;&gt;
+    </h4>
+  </section>
 </DocumentFragment>
 `;
