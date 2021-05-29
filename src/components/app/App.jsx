@@ -21,29 +21,26 @@ function App() {
   const record = (value) => {
     //current variable to record & push current into colorRecords:
     setCurrent(value);
+    setCounter((counter) => counter + 1);
     //colorRecords.push(current);
     // maybe need to rework this function to fit proper hook syntax:
     setColorRecords((colorRecords) => [...colorRecords, value]);
   };
 
   const undoRecord = () => {
-    console.log('undoRecord is kinda sorta working');
     const diffCondition = counter - editCounter - 1;
-    console.log('>>DC>>', diffCondition);
     if (diffCondition > 0) {
-      console.log('if statement entered');
-      setEditCounter((editCounter) => editCounter + 1);
-      //I don't know why this works but it does:
       setCurrent(colorRecords[counter - editCounter - 1]);
-      //setCurrent('#778855');
+      setEditCounter((editCounter) => editCounter + 1);
+      console.log('Undo>current color', current);
     } else console.log('no previous records');
   };
 
   useEffect(
     (current) => {
-      if (counter === 0)
+      if (counter === 0) {
         setColorRecords((colorRecords) => [...colorRecords, current]);
-      setCounter((counter) => counter + 1);
+      }
       setLoading(false);
     },
     [current]
