@@ -1,5 +1,16 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 
-export default function App() {
-  return <h1>Hello World</h1>;
+import ColorContainer from '../../containers/ColorContainer';
+
+function App() {
+  return (
+    <>
+      <ColorContainer />
+    </>
+  );
 }
+
+export default App;
