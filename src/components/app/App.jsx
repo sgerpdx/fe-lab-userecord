@@ -3,21 +3,21 @@
  */
 import React from 'react';
 //import { useState, useEffect } from 'react';
-import styles from './App.css';
-import { useRecord } from '../hooks/useRecord';
-import ColorControls from '../displays/ColorControls';
+//import styles from './App.css';
+
+import ColorContainer from '../../containers/ColorContainer';
 
 function App() {
-  const {
-    current,
-    undo,
-    redo,
-    record,
-    loading,
-    feedback,
-    editCounter,
-    counter,
-  } = useRecord('#FF0000');
+  // const {
+  //   current,
+  //   undo,
+  //   redo,
+  //   record,
+  //   loading,
+  //   feedback,
+  //   editCounter,
+  //   counter,
+  // } = useRecord('#FF0000');
   // const [loading, setLoading] = useState(true);
   // const [colorRecords, setColorRecords] = useState([]);
   // const [counter, setCounter] = useState(0);
@@ -60,27 +60,18 @@ function App() {
   //   setLoading(false);
   // }, [current]);
 
-  if (loading) return <h2>Loading...</h2>;
+  //if (loading) return <h2>Loading...</h2>;
 
   return (
     <>
-      <ColorControls />
-      <section className={styles.displayArea}>
-        <div
-          role="colorBox"
-          aria-label="Color Display"
-          style={{
-            backgroundColor: current,
-            width: '10rem',
-            height: '10rem',
-            border: 'solid 1px white',
-            padding: '4px',
-          }}
-        ></div>
-      </section>
-      <section className={styles.feedbackArea}>
-        <h4 aria-label="User Feedback">{feedback}</h4>
-      </section>
+      <ColorContainer />
+      {/* <ColorControls
+        onUndo={undo}
+        onRedo={redo}
+        current={current}
+        onRecord={record}
+      />
+      <ColorDisplay feedback={feedback} current={current} /> */}
     </>
   );
 }
