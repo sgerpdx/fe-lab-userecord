@@ -2,25 +2,9 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-
-const avatarServer = setupServer(
-  rest.get(
-    'https://last-airbender-api.herokuapp.com/api/v1/characters',
-    (req, res, ctx) => {
-      return res(ctx.json(characterData));
-    }
-  )
-);
-
-const colorRecords = [' #FF0000', '#2b00ff', '#00ff2a'];
-const newValue = '#00eeff';
-const counter = 3;
-const editCounter = 1;
 
 describe('App component', () => {
   afterEach(() => cleanup());
@@ -32,33 +16,42 @@ describe('App component', () => {
   it('behaves as intended', async () => {
     render(<App />);
 
+    // testing for basic elements:
     const title = await screen.getByText(
       'Select a Color to Change the Square:'
     );
     expect(title).toMatchSnapshot();
 
-    const redoButton = await screen.findByRole('button', {
+    const undoButton = await screen.findByRole('button', {
       name: 'Undo Selection',
+    });
+    expect(undoButton).toMatchSnapshot();
+    expect(undoButton).toMatchSnapshot();
+
+    const redoButton = await screen.findByRole('button', {
+      name: 'Redo Selection',
     });
     expect(redoButton).toMatchSnapshot();
 
-    const undoButton = await screen.findByRole('button', {
-      name: 'Redo Selection',
+    // testing for behaviors:
+    const colorInput = await screen.getByRole('colorInput', {
+      name: 'Color Selector',
     });
-    // const colorDiv = await screen.getByRole('colorbox');
-    expect(undoButton).toMatchSnapshot();
-    // userEvent.click(undoButton);
-    // expect(colorDiv.backgroundColor).toEqual(colorRecords[0]);
+    const colorBox = await screen.getByRole('colorBox', {
+      name: 'Color Display',
+    });
+    //const undo = await screen.getByRole('button', { name: 'undo' });
 
-    // return waitFor(() => {
-    //   expect(colorRecords).toEqual([
-    //     ' #FF0000',
-    //     '#2b00ff',
-    //     '#00ff2a',
-    //     '#00eeff',
-    //   ]);
-    // });
+    fireEvent.input(colorInput, { target: { value: '#2b00ff' } });
+    expect(colorBox).toHaveStyle('background-color: #2b00ff');
 
-    //per the RTL docs there is no support for <input type="color">
+    fireEvent.input(colorInput, { target: { value: '#00ff2a' } });
+    expect(colorBox).toHaveStyle('background-color: #00ff2a');
+
+    userEvent.click(undoButton);
+    expect(colorBox).toHaveStyle('background-color: #2b00ff');
+
+    userEvent.click(redoButton);
+    expect(colorBox).toHaveStyle('background-color: #00ff2a');
   });
 });

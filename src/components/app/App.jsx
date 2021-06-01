@@ -16,7 +16,7 @@ function App() {
   const [feedback, setFeedback] = useState('');
 
   // console.log('>>>', colorRecords);
-  console.log('//Current:', current);
+  // console.log('//Current:', current);
   // console.log('|||counter', counter);
   // console.log(':::editCounter', editCounter);
 
@@ -73,6 +73,7 @@ function App() {
         <div>
           <label for="color">Selector</label>
           <input
+            role="colorInput"
             id="color"
             type="color"
             value={current}
@@ -83,8 +84,9 @@ function App() {
         </div>
 
         <div
+          role="colorBox"
+          aria-label="Color Display"
           style={{
-            role: 'colorbox',
             backgroundColor: current,
             width: '10rem',
             height: '10rem',

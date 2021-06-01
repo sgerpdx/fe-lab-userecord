@@ -16,6 +16,14 @@ exports[`App component behaves as intended 2`] = `
 
 exports[`App component behaves as intended 3`] = `
 <button
+  aria-label="Undo Selection"
+>
+  undo
+</button>
+`;
+
+exports[`App component behaves as intended 4`] = `
+<button
   aria-label="Redo Selection"
 >
   redo
@@ -50,12 +58,15 @@ exports[`App component renders App 1`] = `
       <input
         aria-label="Color Selector"
         id="color"
+        role="colorInput"
         style="margin: 10px;"
         type="color"
         value="#FF0000"
       />
     </div>
     <div
+      aria-label="Color Display"
+      role="colorBox"
       style="background-color: rgb(255, 0, 0); width: 10rem; height: 10rem; border: 1px solid white; padding: 4px;"
     />
   </section>
