@@ -15,11 +15,6 @@ function App() {
   const [current, setCurrent] = useState('#FF0000');
   const [feedback, setFeedback] = useState('');
 
-  // console.log('>>>', colorRecords);
-  // console.log('//Current:', current);
-  // console.log('|||counter', counter);
-  // console.log(':::editCounter', editCounter);
-
   const record = (value) => {
     const currentIndex = colorRecords.length - editCounter;
     setCurrent(value);
@@ -42,9 +37,7 @@ function App() {
 
   const redo = () => {
     if (editCounter !== 0) {
-      //this part is working, though maybe on a delay:
       setEditCounter((editCounter) => editCounter - 1);
-      //this part is not working:
       setCurrent(colorRecords[counter - editCounter + 1]);
     } else setFeedback('no forward records -- 🤖');
   };
