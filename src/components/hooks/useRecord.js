@@ -42,4 +42,16 @@ export const useRecord = () => {
     setFeedback('>>>');
     setLoading(false);
   }, [current]);
+
+  return {
+    loading,
+    colorRecords,
+    counter,
+    editCounter,
+    current,
+    feedback,
+    record,
+    undo,
+    redo,
+  };
 };

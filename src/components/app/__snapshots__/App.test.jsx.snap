@@ -64,20 +64,24 @@ exports[`App component renders App 1`] = `
         value="#FF0000"
       />
     </div>
+  </section>
+  <section
+    class="displayArea"
+  >
     <div
       aria-label="Color Display"
       role="colorBox"
       style="background-color: rgb(255, 0, 0); width: 10rem; height: 10rem; border: 1px solid white; padding: 4px;"
     />
-  </section>
-  <section
-    class="feedbackArea"
-  >
-    <h4
-      aria-label="User Feedback"
+    <div
+      class="feedbackArea"
     >
-      &gt;&gt;&gt;
-    </h4>
+      <h4
+        aria-label="User Feedback"
+      >
+        &gt;&gt;&gt;
+      </h4>
+    </div>
   </section>
 </DocumentFragment>
 `;
